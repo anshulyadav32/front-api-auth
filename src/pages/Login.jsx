@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Alert, CircularProgress, Paper } from '@mui/material';
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -21,12 +23,13 @@ export default function Login() {
         const data = await res.json();
         setError(data.message || 'Login failed');
       } else {
-        // Handle successful login (e.g., save token, redirect)
         setError('');
-        alert('Login successful!');
+        toast.success('Logged in successfully');
+        // Handle successful login (e.g., save token, redirect)
       }
   } catch {
       setError('Network error');
+      toast.error('Network error');
     }
     setLoading(false);
   };
@@ -54,12 +57,11 @@ export default function Login() {
             required
             margin="normal"
           />
-          <Box mt={2} mb={2}>
-            <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
-              {loading ? <CircularProgress size={24} /> : 'Login'}
-            </Button>
-          </Box>
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+          <Button type="submit" disabled={loading} className="w-full gap-2" sx={{ mt: 2 }}>
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            Login
+          </Button>
         </Box>
       </Paper>
     </Box>

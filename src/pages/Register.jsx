@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Alert, CircularProgress, Paper } from '@mui/material';
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -23,10 +25,12 @@ function Register() {
         setError(data.message || 'Registration failed');
       } else {
         setError('');
-        alert('Registration successful!');
+        toast.success('Registration successful!');
+        // Handle successful registration (e.g., redirect)
       }
   } catch {
       setError('Network error');
+      toast.error('Network error');
     }
     setLoading(false);
   };
@@ -54,12 +58,11 @@ function Register() {
             required
             margin="normal"
           />
-          <Box mt={2} mb={2}>
-            <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
-              {loading ? <CircularProgress size={24} /> : 'Register'}
-            </Button>
-          </Box>
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+          <Button type="submit" disabled={loading} className="w-full gap-2" sx={{ mt: 2 }}>
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+            Register
+          </Button>
         </Box>
       </Paper>
     </Box>
