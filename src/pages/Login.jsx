@@ -25,7 +25,7 @@ export default function Login() {
         setError('');
         alert('Login successful!');
       }
-    } catch (err) {
+  } catch {
       setError('Network error');
     }
     setLoading(false);

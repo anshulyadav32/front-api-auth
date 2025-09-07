@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Alert, CircularProgress, Paper } from '@mui/material';
 
+function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -23,7 +25,7 @@ import { Box, Button, TextField, Typography, Alert, CircularProgress, Paper } fr
         setError('');
         alert('Registration successful!');
       }
-    } catch (err) {
+  } catch {
       setError('Network error');
     }
     setLoading(false);
@@ -63,3 +65,5 @@ import { Box, Button, TextField, Typography, Alert, CircularProgress, Paper } fr
     </Box>
   );
 }
+
+export default Register;

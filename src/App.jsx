@@ -1,40 +1,26 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Profile from './pages/Profile';
-import MFA from './pages/MFA';
-import OAuth from './pages/OAuth';
-import Admin from './pages/Admin';
-import Health from './pages/Health';
-import OAuthTest from './pages/OAuthTest';
 
-function App() {
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+
+import DashboardPage from "./pages/DashboardPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+export default function App() {
   return (
-    <Router>
-      <nav style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-        <Link to="/profile">Profile</Link>
-        <Link to="/mfa">MFA</Link>
-        <Link to="/oauth">OAuth</Link>
-        <Link to="/admin">Admin</Link>
-        <Link to="/health">Health</Link>
-        <Link to="/oauth-test">OAuth Test</Link>
-      </nav>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/mfa" element={<MFA />} />
-        <Route path="/oauth" element={<OAuth />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/health" element={<Health />} />
-        <Route path="/oauth-test" element={<OAuthTest />} />
-        <Route path="*" element={<Login />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<h1>Home</h1>} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
+      <Route path="/forgot" element={<ForgotPasswordPage />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        } />
+    </Routes>
   );
 }
-
-export default App
